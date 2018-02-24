@@ -39,8 +39,8 @@ try{
     $saderat= new Saderat($terminalId,$merchantId,$publicKey,$privateKey);
     $verifyData = $saderat->verify($_POST);
     /**
-    * $verifyData is an array :['CRN'=>'UNIQ_CRN','REFERALADRESS'=>'xxx'] 
-    * save this two key and redirect user to payment page
+    * $verifyData is an array :['CRN'=>'UNIQ_CRN','REFERALADRESS'=>'xxx' ,'AMOUNT'=>'000'] 
+    * Use CRN to find transaction detail in your database
     */
     echo "successful payment...thank u.";
     
