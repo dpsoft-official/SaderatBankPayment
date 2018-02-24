@@ -110,7 +110,7 @@ class Saderat
                 if (!empty($result->RESCODE) AND ($result->RESCODE == '00')
                     && ($result->successful == true)
                 ) {
-                    return (array)$result;
+                    return array_merge((array)$result, $response);
                 } else {
                     throw new Exception\VerifyException($result->RESCODE);
                 }
