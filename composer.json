@@ -1,8 +1,6 @@
 {
   "name": "dpsoft/saderat",
   "description": "Saderat bank payment",
-  "minimum-stability": "dev",
-  "license": "GPL",
   "authors": [
     {
       "name": "DaneshPajouhan",
