@@ -123,6 +123,17 @@ class Saderat
     }
 
     /**
+     * Generate redirect script to use in web page
+     *
+     * @param $token
+     *
+     * @return string just echo return
+     */
+    public function getRedirectScript($token)
+    {
+        return $this->request->getRedirectScript($token);
+    }
+    /**
      * @param array $response
      *
      * @throws ValidationException
