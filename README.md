@@ -9,7 +9,7 @@
 Install latest version using [composer](https://getcomposer.org/).
 
 ``` bash
-$ composer require dpsoft-ir/saderat_bank
+$ composer require dpsoft/saderat
 ```
 
 ### Usage
