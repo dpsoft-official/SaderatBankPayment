@@ -21,7 +21,7 @@ try{
     $saderat= new Saderat($terminalId,$merchantId,$publicKey,$privateKey);
     $request_params = $saderat->payRequest($amount_rial,$callbackUrl);
     /**
-    * $request_params is an array with to key:['token'=>'xx','CRN'] 
+    * $request_params is an array with to key:['token'=>'xx','CRN'=>'UNIQ_CRN'] 
     * save this two key and redirect user to payment page
     */
     echo $saderat->getRedirectScript($request_params['token']);
@@ -39,7 +39,7 @@ try{
     $saderat= new Saderat($terminalId,$merchantId,$publicKey,$privateKey);
     $verifyData = $saderat->verify($_POST);
     /**
-    * $verifyData is an array :['CRN'=>'xx','REFERALADRESS'=>'xxx'] 
+    * $verifyData is an array :['CRN'=>'UNIQ_CRN','REFERALADRESS'=>'xxx'] 
     * save this two key and redirect user to payment page
     */
     echo "successful payment...thank u.";
