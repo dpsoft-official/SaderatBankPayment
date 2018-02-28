@@ -141,7 +141,7 @@ class Saderat
      */
     private function validateVerifyData(array $response)
     {
-        v::key('RESCODE', v::numeric())->key('CRN', v::alnum('-_.'))->key('TRN', v::notEmpty())
+        v::key('RESCODE', v::numeric())->key('CRN', v::numeric())->key('TRN', v::optional(v::notEmpty()))
             ->setName('saderat bank response')->assert($response);
     }
 
