@@ -57,7 +57,7 @@ class Saderat
         $payParams = $this->makePayRequestParam($amount, $callbackUrl);
         $result = $this->request->reservation($payParams['params']);
         if ($result->result === 0) {
-            if ($this->ssl->verify($result->token, base64_decode($result->signature))) {
+            if ($this->ssl->verify($result->token, $result->signature)) {
                 return ['token' => $result->token, 'CRN' => $payParams['CRN']];
             } else {
                 throw new Exception\TokenVerifyException();
@@ -133,6 +133,7 @@ class Saderat
     {
         return $this->request->getRedirectScript($token);
     }
+
     /**
      * @param array $response
      *
