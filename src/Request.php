@@ -23,7 +23,7 @@ class Request
     /**
      * @var string
      */
-    private $payUrl = "https://mabna.shaparak.ir/TokenService?wsdl";
+    const SHAPARAK_WEB_PAGE = "https://mabna.shaparak.ir";
     /**
      * @var \SoapClient
      */
@@ -86,7 +86,7 @@ class Request
         </script>
         
 REDIRECT;
-        return sprintf($script, $this->payUrl, $token);
+        return sprintf($script, self::SHAPARAK_WEB_PAGE, $token);
     }
 
     /**
