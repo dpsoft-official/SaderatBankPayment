@@ -77,7 +77,7 @@ class Saderat
     private function makePayRequestParam(int $amount, string $callbackUrl)
     {
         v::url()->assert($callbackUrl);
-        v::numeric()->min(100)->assert($amount);
+        v::numeric()->min(1000)->assert($amount);
         $CRN = substr(str_pad(str_replace('.', '', microtime(true)), 12, 0), 0, 12);
         $payParam = array(
             "Token_param" =>
