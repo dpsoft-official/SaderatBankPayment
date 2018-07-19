@@ -2,9 +2,9 @@
 
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
-Mabna Cart Aria is a iranian company work at bank payment and allow you to handle checkout in your website with iranian cart.
+Mabna Cart Aria is a iranian company work at bank payment and allow you to handle checkout in your website with iranian payment cart.
 
-# Which integration right for me?
+# Is right for me?
 If you need integration your website with Mabna cart payment or need to now Mabna cart how to work, you are in the right place.
 
 # Steps of payment with Mabna cart v2
@@ -17,15 +17,15 @@ If you need integration your website with Mabna cart payment or need to now Mabn
 <li> Receive response of verify url and handle transaction </li>
 </ol>
 
-#Installation
+# Installation
 ``` bash
 $ composer require dpsoft/mabna
 ```
 
-#Implementation
+# Implementation
 Attention: The Mabna cart webservice just available with IP that allowed with Mabna cart(by contract with Mabna cart company).
 
-####Redirect customer with parameters to Mabna gateway
+#### Redirect customer with parameters to Mabna gateway
 ```php
 <?php use Dpsoft\Mabna\MabnaPayment;
 
@@ -51,10 +51,10 @@ try{
     echo $exception->getMessage();
 }
 ```
-####Verify transaction or maybe rollback transaction in conditions
+#### Verify transaction or maybe rollback transaction in conditions
 Customer redirect to callback url with all transaction data and you must verify or rollback transaction.
 <br>If you don't call verifyPayment(), after 30 min transaction rollback by system.
-####verify:
+#### verify:
 ```php
 <?php
 use Dpsoft\Mabna\MabnaPayment;
@@ -66,7 +66,7 @@ try{
     $response = new MabnaPayment($terminalId);
 	
         /**
-          * @method $verifyPayment return class of all response value and you can conver to array by toArray() method
+          * @method $verifyPayment return class of all response value and you can convert to array by toArray() method
           */
         $verifyData = $response->verifyPayment();
         /**
@@ -78,7 +78,8 @@ try{
     echo $exception->getMessage();
 }
 ```
-####Rollback transaction
+#### Rollback transaction
+Need access to rollback payment with Mabna Cart Company
 ```php
 <?php
 use Dpsoft\Mabna\MabnaPayment;
@@ -97,7 +98,7 @@ try{
     echo $exception->getMessage();
 }
 ```
-#####Transaction data or response contains:
+##### Transaction data or response contains:
 <li>respcode: The code of transaction result, if this code equals 0, transaction is success and we can send verify or rollback request if this code equals -1 the customer cancelled payment</li>
 <li>amount: Amount laid out of customer card(you must compare this amount with your amount for security reasons)</li>
 <li>invoiceid: The invoice number of transaction</li>
