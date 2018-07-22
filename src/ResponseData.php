@@ -1,4 +1,4 @@
-<?php namespace Dpsoft\Mabna;
+<?php namespace Dpsoft\Saderat;
 
 
 use Respect\Validation\Exceptions\ValidationException;
@@ -197,18 +197,18 @@ class ResponseData
     public function toArray()
     {
         $result = [
-            'respcode'       => $this->getRespCode(),
-            'amount'         => $this->getAmount(),
-            'invoiceid'      => $this->getInvoiceId(),
-            'payload'        => $this->getPayload(),
-            'terminalid'     => $this->getTerminalId(),
-            'tracenumber'    => $this->getTraceNumber(),
-            'rrn'            => $this->getRRN(),
-            'datepaid'       => $this->getDatePaid(),
+            'respcode' => $this->getRespCode(),
+            'amount' => $this->getAmount(),
+            'invoiceid' => $this->getInvoiceId(),
+            'payload' => $this->getPayload(),
+            'terminalid' => $this->getTerminalId(),
+            'tracenumber' => $this->getTraceNumber(),
+            'rrn' => $this->getRRN(),
+            'datepaid' => $this->getDatePaid(),
             'digitalreceipt' => $this->getDigitalReceipt(),
-            'issuerbank'     => $this->getIssuerBank(),
-            'cardnumber'     => $this->getCardNumber(),
-            'respmsg'        => $this->getRespMsg()
+            'issuerbank' => $this->getIssuerBank(),
+            'cardnumber' => $this->getCardNumber(),
+            'respmsg' => $this->getRespMsg()
         ];
 
         return $result;

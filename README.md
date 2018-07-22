@@ -19,7 +19,7 @@ If you need integration your website with Mabna cart payment or need to now Mabn
 
 # Installation
 ``` bash
-$ composer require dpsoft/mabna
+$ composer require dpsoft/saderat
 ```
 
 # Implementation
@@ -27,7 +27,7 @@ Attention: The Mabna cart webservice just available with IP that allowed with Ma
 
 #### Redirect customer with parameters to Mabna gateway
 ```php
-<?php use Dpsoft\Mabna\MabnaPayment;
+<?php use Dpsoft\Saderat\MabnaPayment;
 
 try{
     /**
@@ -57,7 +57,7 @@ Customer redirect to callback url with all transaction data and you must verify 
 #### verify:
 ```php
 <?php
-use Dpsoft\Mabna\MabnaPayment;
+use Dpsoft\Saderat\MabnaPayment;
 
 try{
     /**
@@ -82,7 +82,7 @@ try{
 Need access to rollback payment with Mabna Cart Company
 ```php
 <?php
-use Dpsoft\Mabna\MabnaPayment;
+use Dpsoft\Saderat\MabnaPayment;
 
 try{
     /**

@@ -1,8 +1,8 @@
 <?php
 
 
-use Dpsoft\Mabna\Exception\MabnaException;
-use Dpsoft\Mabna\MabnaResponse;
+use Dpsoft\Saderat\Exception\MabnaException;
+use Dpsoft\Saderat\MabnaResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
@@ -26,23 +26,22 @@ class MabnaResponseTest extends TestCase
     private $invoiceid;
     private $randNumber;
 
-    public function testResponseData_will_return_validation_exeption_of_response_data(
-    )
+    public function testResponseData_will_return_validation_exeption_of_response_data()
     {
         $this->expectException(ValidationException::class);
         $post = [
-            'respcode'       => 0,
-            'amount'         => 1000,
-            'invoiceid'      => $this->invoiceid,
-            'payload'        => 123,
-            'terminalid'     => 61000063,
-            'tracenumber'    => 123,
-            'rrn'            => 0,
-            'datepaid'       => '2018-05-22',
+            'respcode' => 0,
+            'amount' => 1000,
+            'invoiceid' => $this->invoiceid,
+            'payload' => 123,
+            'terminalid' => 61000063,
+            'tracenumber' => 123,
+            'rrn' => 0,
+            'datepaid' => '2018-05-22',
             'digitalreceipt' => $this->randStr,
-            'issuerbank'     => 'test bank',
-            'respmsg'        => 'test message',
-            'cardnumber'     => '6104-33***0244'
+            'issuerbank' => 'test bank',
+            'respmsg' => 'test message',
+            'cardnumber' => '6104-33***0244'
         ];
         $this->mabnaResponse->getPostVariables($post);
     }
@@ -53,8 +52,7 @@ class MabnaResponseTest extends TestCase
      * @throws MabnaException
      * @throws RequestException
      */
-    public function testVerifyPayment_will_return_mabna_exeption_respcode_not_valid(
-    )
+    public function testVerifyPayment_will_return_mabna_exeption_respcode_not_valid()
     {
         $this->expectException(MabnaException::class);
         $this->mabnaResponse->setRespCode(-1);
@@ -67,8 +65,7 @@ class MabnaResponseTest extends TestCase
      * @throws MabnaException
      * @throws RequestException
      */
-    public function testVerifyPayment_will_return_mabna_exeption_respcode_unknow(
-    )
+    public function testVerifyPayment_will_return_mabna_exeption_respcode_unknow()
     {
         $this->expectException(MabnaException::class);
         $this->mabnaResponse->setRespCode(-9);
@@ -162,7 +159,7 @@ class MabnaResponseTest extends TestCase
 
     /**
      * @param string $status
-     * @param int    $returnId
+     * @param int $returnId
      *
      * @return Client
      */
@@ -174,9 +171,9 @@ class MabnaResponseTest extends TestCase
                     200, [],
                     json_encode(['Status' => $status, 'ReturnId' => $returnId])
                 ), new RequestException(
-                    "Error Communicating with Server",
-                    new Request('GET', 'test')
-                )
+                "Error Communicating with Server",
+                new Request('GET', 'test')
+            )
             ]
         );
 
@@ -213,18 +210,18 @@ class MabnaResponseTest extends TestCase
         $this->randNumber = rand();
         $this->invoiceid = rand(000000000, 999999999);
         $post = [
-            'respcode'       => 0,
-            'amount'         => 1000,
-            'invoiceid'      => $this->invoiceid,
-            'payload'        => $this->randStr,
-            'terminalid'     => $this->randNumber,
-            'tracenumber'    => $this->randNumber,
-            'rrn'            => $this->randNumber,
-            'datepaid'       => '2018-05-22',
+            'respcode' => 0,
+            'amount' => 1000,
+            'invoiceid' => $this->invoiceid,
+            'payload' => $this->randStr,
+            'terminalid' => $this->randNumber,
+            'tracenumber' => $this->randNumber,
+            'rrn' => $this->randNumber,
+            'datepaid' => '2018-05-22',
             'digitalreceipt' => $this->randStr,
-            'issuerbank'     => $this->randStr,
-            'respmsg'        => $this->randStr,
-            'cardnumber'     => $this->randStr
+            'issuerbank' => $this->randStr,
+            'respmsg' => $this->randStr,
+            'cardnumber' => $this->randStr
         ];
         $this->mabnaResponse = new MabnaResponse(12345678, $post);
     }

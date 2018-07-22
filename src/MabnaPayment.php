@@ -1,4 +1,4 @@
-<?php namespace Dpsoft\Mabna;
+<?php namespace Dpsoft\Saderat;
 
 
 use GuzzleHttp\Exception\RequestException;
@@ -55,7 +55,7 @@ class MabnaPayment
      *
      */
     public function payRequest(string $callbackUrl, int $amount,
-                               string $payload = ''
+                               string $payload = null
     )
     {
         v::url()->assert($callbackUrl);
@@ -81,7 +81,7 @@ class MabnaPayment
     public function getRedirectScript()
     {
         $js_code
-            = '<script>var form = document.createElement("form");
+            = '<script>let form = document.createElement("form");
 form.setAttribute("method", "POST");
 form.setAttribute("action", "%s");
 form.setAttribute("target", "_self");';
@@ -134,7 +134,7 @@ form.setAttribute("target", "_self");';
      * @throws RequestException
      *
      */
-    public function rollbackPayment(string $digitalReceipt = '')
+    public function rollbackPayment(string $digitalReceipt = null)
     {
         if ($digitalReceipt == '') {
             $digitalReceipt = $_POST['digitalreceipt'];

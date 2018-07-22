@@ -14,7 +14,7 @@
 
 <?php
 
-use Dpsoft\Mabna\MabnaPayment;
+use Dpsoft\Saderat\MabnaPayment;
 
 require "../vendor/autoload.php";
 
