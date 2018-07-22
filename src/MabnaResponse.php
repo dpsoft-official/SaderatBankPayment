@@ -1,7 +1,7 @@
-<?php namespace Dpsoft\Mabna;
+<?php namespace Dpsoft\Saderat;
 
 
-use Dpsoft\Mabna\Exception\MabnaException;
+use Dpsoft\Saderat\Exception\MabnaException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Respect\Validation\Exceptions\ValidationException;

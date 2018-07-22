@@ -8,12 +8,12 @@
     <title>Mabna Payment</title>
 </head>
 <body>
-<h1>Mabna Payment Test Page</h1>
-<form method="post" action="/soltani-tmp//sample/request-payment.php">
+<h1>Saderat Bank Mabna Payment Test Page with Rollback</h1>
+<form method="post" action="/sample/request-payment.php">
     <fieldset>
         <legend>Sendeing Data</legend>
         <input type="hidden" name="callbackurl"
-               value="http://dpe.ac/soltani-tmp/sample/rollback-payment.php"/>
+               value="Your URL/sample/rollback-payment.php"/>
         <div>
             <label for="Amount">Amount:</label>
             <input type="text" name="amount" value="1000"/>
@@ -37,7 +37,7 @@
 
 <?php
 
-use Dpsoft\Mabna\MabnaPayment;
+use Dpsoft\Saderat\MabnaPayment;
 
 require "../vendor/autoload.php";
 

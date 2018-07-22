@@ -1,7 +1,7 @@
 <?php
 
 
-use Dpsoft\Mabna\MabnaPayment;
+use Dpsoft\Saderat\MabnaPayment;
 use PHPUnit\Framework\TestCase;
 
 class MabnaPaymentTest extends TestCase
@@ -22,8 +22,7 @@ class MabnaPaymentTest extends TestCase
     }
 
 
-    public function testPayRequest_will_return_invoice_id_and_redirect_to_gateway(
-    )
+    public function testPayRequest_will_return_invoice_id_and_redirect_to_gateway()
     {
         $callbackUrl = 'http://www.example.com';
         $invoiceId = $this->mabnaPayment->payRequest(
