@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Mabna Payment</title>
+    <title>Saderat Payment</title>
 </head>
 <body>
 
@@ -14,11 +14,11 @@
 
 <?php
 
-use Dpsoft\Saderat\MabnaPayment;
+use Dpsoft\Saderat\Saderat;
 
 require "../vendor/autoload.php";
 
-$request = new MabnaPayment(61000063);
+$request = new Saderat(61000063);
 
 $invoiceId = $request->payRequest($_POST['callbackurl'], $_POST['amount'], $_POST['payload']);
 

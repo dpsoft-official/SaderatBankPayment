@@ -1,11 +1,11 @@
 <?php namespace Dpsoft\Saderat\Exception;
 
 
-class MabnaException extends \Exception
+class SaderatException extends \Exception
 {
 
     /**
-     * MabnaException constructor.
+     * SaderatException constructor.
      *
      * @param int $code
      */

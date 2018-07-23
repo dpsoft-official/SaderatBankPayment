@@ -1,8 +1,8 @@
 <?php
 
 
-use Dpsoft\Saderat\Exception\MabnaException;
-use Dpsoft\Saderat\MabnaResponse;
+use Dpsoft\Saderat\Exception\SaderatException;
+use Dpsoft\Saderat\SaderatResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
@@ -12,12 +12,12 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Respect\Validation\Exceptions\ValidationException;
 
-class MabnaResponseTest extends TestCase
+class SaderatResponseTest extends TestCase
 {
     /**
-     * @var $mabnaResponse MabnaResponse
+     * @var $SaderatResponse SaderatResponse
      */
-    private $mabnaResponse;
+    private $SaderatResponse;
 
     /**
      * @var int
@@ -43,58 +43,58 @@ class MabnaResponseTest extends TestCase
             'respmsg' => 'test message',
             'cardnumber' => '6104-33***0244'
         ];
-        $this->mabnaResponse->getPostVariables($post);
+        $this->SaderatResponse->getPostVariables($post);
     }
 
     /**
      * @test
      *
-     * @throws MabnaException
+     * @throws SaderatException
      * @throws RequestException
      */
-    public function testVerifyPayment_will_return_mabna_exeption_respcode_not_valid()
+    public function testverify_will_return_Saderat_exeption_respcode_not_valid()
     {
-        $this->expectException(MabnaException::class);
-        $this->mabnaResponse->setRespCode(-1);
-        $this->mabnaResponse->verifyPayment();
+        $this->expectException(SaderatException::class);
+        $this->SaderatResponse->setRespCode(-1);
+        $this->SaderatResponse->verify();
     }
 
     /**
      * @test
      *
-     * @throws MabnaException
+     * @throws SaderatException
      * @throws RequestException
      */
-    public function testVerifyPayment_will_return_mabna_exeption_respcode_unknow()
+    public function testverify_will_return_Saderat_exeption_respcode_unknow()
     {
-        $this->expectException(MabnaException::class);
-        $this->mabnaResponse->setRespCode(-9);
-        $this->mabnaResponse->verifyPayment();
+        $this->expectException(SaderatException::class);
+        $this->SaderatResponse->setRespCode(-9);
+        $this->SaderatResponse->verify();
     }
 
     /**
      * @test
      *
-     * @throws MabnaException
+     * @throws SaderatException
      * @throws RequestException
      */
-    public function testVerifyPayment_will_return_mabna_exeption()
+    public function testverify_will_return_Saderat_exeption()
     {
-        $this->expectException(MabnaException::class);
-        $this->mabnaResponse->setClient($this->clientMock('NOK', -4));
-        $this->mabnaResponse->verifyPayment();
+        $this->expectException(SaderatException::class);
+        $this->SaderatResponse->setClient($this->clientMock('NOK', -4));
+        $this->SaderatResponse->verify();
     }
 
     /**
      * @test
      *
-     * @throws MabnaException
+     * @throws SaderatException
      * @throws RequestException
      */
-    public function testVerifyPayment_will_return_value_in_class()
+    public function testverify_will_return_value_in_class()
     {
-        $this->mabnaResponse->setClient($this->clientMock('Ok', 1000));
-        $response = $this->mabnaResponse->verifyPayment();
+        $this->SaderatResponse->setClient($this->clientMock('Ok', 1000));
+        $response = $this->SaderatResponse->verify();
         $this->assertEquals(1000, $response->getAmount());
         $this->assertEquals(0, $response->getRespCode());
     }
@@ -103,13 +103,13 @@ class MabnaResponseTest extends TestCase
     /**
      * @test
      *
-     * @throws MabnaException
+     * @throws SaderatException
      * @throws RequestException
      */
-    public function testVerifyPayment_will_return_value_in_array()
+    public function testverify_will_return_value_in_array()
     {
-        $this->mabnaResponse->setClient($this->clientMock('Ok', 1000));
-        $response = $this->mabnaResponse->verifyPayment();
+        $this->SaderatResponse->setClient($this->clientMock('Ok', 1000));
+        $response = $this->SaderatResponse->verify();
         $this->assertArrayHasKey('amount', $response->toArray());
     }
 
@@ -117,28 +117,28 @@ class MabnaResponseTest extends TestCase
     /**
      * @test
      *
-     * @throws MabnaException
+     * @throws SaderatException
      * @throws RequestException
      *
      */
-    public function testRollbackPayment_will_return_mabna_exeption()
+    public function testRollbackPayment_will_return_Saderat_exeption()
     {
-        $this->expectException(MabnaException::class);
-        $this->mabnaResponse->setClient($this->clientMock('NOK', -8));
-        $this->mabnaResponse->rollbackPayment('sdf');
+        $this->expectException(SaderatException::class);
+        $this->SaderatResponse->setClient($this->clientMock('NOK', -8));
+        $this->SaderatResponse->rollbackPayment('sdf');
     }
 
 
     /**
      * @test
      *
-     * @throws MabnaException
+     * @throws SaderatException
      * @throws RequestException
      */
     public function testRollbackPayment_will_return_true_response()
     {
-        $this->mabnaResponse->setClient($this->clientMock('Ok', 0));
-        $result = $this->mabnaResponse->rollbackPayment('sdf');
+        $this->SaderatResponse->setClient($this->clientMock('Ok', 0));
+        $result = $this->SaderatResponse->rollbackPayment('sdf');
         $this->assertTrue($result);
     }
 
@@ -146,14 +146,14 @@ class MabnaResponseTest extends TestCase
     /**
      * @test
      *
-     * @throws MabnaException
+     * @throws SaderatException
      * @throws RequestException
      */
     public function testRollbackPayment_will_return_request_exception()
     {
         $this->expectException(RequestException::class);
-        $this->mabnaResponse->setClient($this->clientMockError());
-        $this->mabnaResponse->rollbackPayment('sdf');
+        $this->SaderatResponse->setClient($this->clientMockError());
+        $this->SaderatResponse->rollbackPayment('sdf');
     }
 
 
@@ -223,6 +223,6 @@ class MabnaResponseTest extends TestCase
             'respmsg' => $this->randStr,
             'cardnumber' => $this->randStr
         ];
-        $this->mabnaResponse = new MabnaResponse(12345678, $post);
+        $this->SaderatResponse = new SaderatResponse(12345678, $post);
     }
 }

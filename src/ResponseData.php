@@ -14,7 +14,7 @@ class ResponseData
 
 
     /**
-     * validate and set Mabna response code
+     * validate and set Saderat response code
      *
      * @param int $respCode
      *
@@ -215,7 +215,7 @@ class ResponseData
     }
 
     /**
-     * Get Mabna response code
+     * Get Saderat response code
      *
      * @return int
      */

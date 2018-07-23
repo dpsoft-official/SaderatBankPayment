@@ -1,16 +1,16 @@
 <?php
 
 
-use Dpsoft\Saderat\MabnaPayment;
+use Dpsoft\Saderat\Saderat;
 use PHPUnit\Framework\TestCase;
 
-class MabnaPaymentTest extends TestCase
+class SaderatTest extends TestCase
 {
 
     /**
-     * @var MabnaPayment
+     * @var Saderat
      */
-    private $mabnaPayment;
+    private $Saderat;
 
 
     public function testPayRequest_it_should_throw_validation_exception()
@@ -18,17 +18,17 @@ class MabnaPaymentTest extends TestCase
         $this->expectException(
             \Respect\Validation\Exceptions\ValidationException::class
         );
-        $this->mabnaPayment->payRequest('http://google.com', 100, 'test');
+        $this->Saderat->payRequest('http://google.com', 100, 'test');
     }
 
 
     public function testPayRequest_will_return_invoice_id_and_redirect_to_gateway()
     {
         $callbackUrl = 'http://www.example.com';
-        $invoiceId = $this->mabnaPayment->payRequest(
+        $invoiceId = $this->Saderat->payRequest(
             $callbackUrl, 1000, 'test'
         );
-        $redirectScriptString = $this->mabnaPayment->getRedirectScript();
+        $redirectScriptString = $this->Saderat->getRedirectScript();
         $this->assertContains((string)$invoiceId, $redirectScriptString);
         $this->assertContains($callbackUrl, $redirectScriptString);
         $this->assertContains('1000', $redirectScriptString);
@@ -38,7 +38,7 @@ class MabnaPaymentTest extends TestCase
 
     public function setUp()
     {
-        $this->mabnaPayment = new MabnaPayment(123);
+        $this->Saderat = new Saderat(123);
     }
 
 }
