@@ -5,10 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Mabna Payment</title>
+    <title>Saderat Payment</title>
 </head>
 <body>
-<h1>Saderat Bank Mabna Payment Test Page with Rollback</h1>
+<h1>Saderat Bank Saderat Payment Test Page with Rollback</h1>
 <form method="post" action="/sample/request-payment.php">
     <fieldset>
         <legend>Sendeing Data</legend>
@@ -37,7 +37,7 @@
 
 <?php
 
-use Dpsoft\Saderat\MabnaPayment;
+use Dpsoft\Saderat\Saderat;
 
 require "../vendor/autoload.php";
 
@@ -50,11 +50,11 @@ try {
     /**
      * @var int $terminalid
      */
-    $payment = new MabnaPayment(61000063);
+    $payment = new Saderat(61000063);
 
     if ($_POST['digitalreceipt']) {
         /**
-         * @method $verifyPayment return class of all response value and you can conver to array by toArray() method
+         * @method $verify return class of all response value and you can conver to array by toArray() method
          */
         $payment = $payment->rollbackPayment($_POST['digitalreceipt']);
 

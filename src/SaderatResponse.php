@@ -1,28 +1,28 @@
 <?php namespace Dpsoft\Saderat;
 
 
-use Dpsoft\Saderat\Exception\MabnaException;
+use Dpsoft\Saderat\Exception\SaderatException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Respect\Validation\Exceptions\ValidationException;
 
-class MabnaResponse extends ResponseData
+class SaderatResponse extends ResponseData
 {
     /**
-     * Mabna verify url
+     * Saderat verify url
      *
      * @var string
      *
      */
-    const VERIFY_URl = "https://mabna.shaparak.ir:8081/V1/PeymentApi/Advice";
+    const VERIFY_URl = "https://Saderat.shaparak.ir:8081/V1/PeymentApi/Advice";
 
     /**
-     * Mabna rollback url
+     * Saderat rollback url
      *
      * @var string
      *
      */
-    const ROLLBACK_URl = "https://mabna.shaparak.ir:8081/V1/PeymentApi/Rollback";
+    const ROLLBACK_URl = "https://Saderat.shaparak.ir:8081/V1/PeymentApi/Rollback";
 
     /**
      * Terminal ID
@@ -60,13 +60,13 @@ class MabnaResponse extends ResponseData
     /**
      * Verify and get data of transaction
      *
-     * @return MabnaResponse
+     * @return SaderatResponse
      *
-     * @throws MabnaException
+     * @throws SaderatException
      * @throws RequestException
      *
      */
-    public function verifyPayment()
+    public function verify()
     {
         if ($this->getRespCode() == 0) {
             $this->client = $this->client ?? new Client();
@@ -86,12 +86,12 @@ class MabnaResponse extends ResponseData
             ) {
                 return $this;
             } else {
-                throw new MabnaException($verifyResponse['ReturnId'] ?? -8);
+                throw new SaderatException($verifyResponse['ReturnId'] ?? -8);
             }
         } elseif ($this->getRespCode() == -1) {
-            throw new MabnaException(-7);
+            throw new SaderatException(-7);
         } else {
-            throw new MabnaException(-8);
+            throw new SaderatException(-8);
         }
     }
 
@@ -101,7 +101,7 @@ class MabnaResponse extends ResponseData
      *
      * @return bool
      *
-     * @throws MabnaException
+     * @throws SaderatException
      * @throws RequestException
      */
     public function rollbackPayment(string $digitalReceipt)
@@ -121,7 +121,7 @@ class MabnaResponse extends ResponseData
         if (!empty($rollbackResponse['Status']) and $rollbackResponse['Status'] == 'Ok') {
             return true;
         } else {
-            throw new MabnaException($rollbackResponse['ReturnId'] ?? -8);
+            throw new SaderatException($rollbackResponse['ReturnId'] ?? -8);
         }
     }
 

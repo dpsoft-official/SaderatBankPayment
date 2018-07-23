@@ -1,19 +1,19 @@
-# Mabna Card Aria Payment Package - v2
+# Mabna Card Aria Payment Package(Saderat Bank) - v2
 
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
-Mabna Cart Aria is a iranian company work at bank payment and allow you to handle checkout in your website with iranian payment cart.
+Mabna Cart Aria is a iranian company work at bank payment and allow you to handle checkout in your website with iranian payment cart(Saderat Bank).
 
 # Is right for me?
-If you need integration your website with Mabna cart payment or need to now Mabna cart how to work, you are in the right place.
+If you need integration your website with Saderat Bank or need to now Saderat online payment how to work, you are in the right place.
 
-# Steps of payment with Mabna cart v2
+# Steps of payment with Saderat payment v2
 <ol>
 <li> Customer choose sevices or products in website</li>
 <li> Redirect customer to gateway with payment params(with post method)</li>
-<li> Customer enter cart data in Mabna gateway and pay amount</li>
-<li> Mabna cart redirect customer to callback url with post method and transaction response parameters</li>
-<li> Post response parameter to Mabna cart verify url </li>
+<li> Customer enter cart data in Saderat gateway and pay amount</li>
+<li> Saderat gateway redirect customer to callback url with post method and transaction response parameters</li>
+<li> Post response parameter to Saderat verify url </li>
 <li> Receive response of verify url and handle transaction </li>
 </ol>
 
@@ -23,17 +23,17 @@ $ composer require dpsoft/saderat
 ```
 
 # Implementation
-Attention: The Mabna cart webservice just available with IP that allowed with Mabna cart(by contract with Mabna cart company).
-
-#### Redirect customer with parameters to Mabna gateway
+Attention: The Saderat Bank webservice just available with IP that allowed with Saderat Bank(by contract with Mabna cart company).
+<br><br>[استفاده از درگاه بانک صادرات - مبنا - در زبان Php](https://dpsoft.ir/%D9%88%D8%A8%D9%84%D8%A7%DA%AF/25/%D8%A7%D8%B3%D8%AA%D9%81%D8%A7%D8%AF%D9%87+%D8%A7%D8%B2+%D8%AF%D8%B1%DA%AF%D8%A7%D9%87+%D8%A8%D8%A7%D9%86%DA%A9+%D8%B5%D8%A7%D8%AF%D8%B1%D8%A7%D8%AA+-+%D9%85%D8%A8%D9%86%D8%A7+-+%D8%AF%D8%B1+%D8%B2%D8%A8%D8%A7%D9%86+Php)
+#### Redirect customer with parameters to Saderat gateway
 ```php
-<?php use Dpsoft\Saderat\MabnaPayment;
+<?php use Dpsoft\Saderat\Saderat;
 
 try{
     /**
-    * @param int $terminalId The Mabna cart terminal id assign to you 
+    * @param int $terminalId The Saderat cart terminal id assign to you 
     */
-    $request = new MabnaPayment($terminalId);
+    $request = new Saderat($terminalId);
 	
     /**
      * @param string $callbackUrl The url that customer redirect to after payment
@@ -53,22 +53,22 @@ try{
 ```
 #### Verify transaction or maybe rollback transaction in conditions
 Customer redirect to callback url with all transaction data and you must verify or rollback transaction.
-<br>If you don't call verifyPayment(), after 30 min transaction rollback by system.
+<br>If you don't call verify(), after 30 min transaction rollback by system.
 #### verify:
 ```php
 <?php
-use Dpsoft\Saderat\MabnaPayment;
+use Dpsoft\Saderat\Saderat;
 
 try{
     /**
       * @var int $terminalId
       */
-    $response = new MabnaPayment($terminalId);
+    $response = new Saderat($terminalId);
 	
         /**
-          * @method $verifyPayment return class of all response value and you can convert to array by toArray() method
+          * @method $verify return class of all response value and you can convert to array by toArray() method
           */
-        $verifyData = $response->verifyPayment();
+        $verifyData = $response->verify();
         /**
           * Check your amount with response amount
           */
@@ -82,13 +82,13 @@ try{
 Need access to rollback payment with Mabna Cart Company
 ```php
 <?php
-use Dpsoft\Saderat\MabnaPayment;
+use Dpsoft\Saderat\Saderat;
 
 try{
     /**
       * @var int $terminalId
       */
-    $response = new MabnaPayment($terminalId);
+    $response = new Saderat($terminalId);
 	
     $response->rollbackPayment($digitalReceipt);
     	

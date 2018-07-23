@@ -5,15 +5,15 @@ use GuzzleHttp\Exception\RequestException;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator as v;
 
-class MabnaPayment
+class Saderat
 {
     /**
-     * Mabna action url
+     * Saderat action url
      *
      * @var string
      *
      */
-    const MABNA_SHAPARAK_URL = "https://mabna.shaparak.ir:8080/Pay";
+    const Saderat_SHAPARAK_URL = "https://Saderat.shaparak.ir:8080/Pay";
 
     /**
      * Payment options
@@ -100,25 +100,25 @@ form.setAttribute("target", "_self");';
 
         $js_code .= 'document.body.appendChild(form);form.submit();</script>';
 
-        return sprintf($js_code, self::MABNA_SHAPARAK_URL);
+        return sprintf($js_code, self::Saderat_SHAPARAK_URL);
     }
 
 
     /**
      * Verify and get data of transaction by get method or arrayValue too.(by call toArray())
      *
-     * @return MabnaResponse
+     * @return SaderatResponse
      *
-     * @throws Exception\MabnaException
+     * @throws Exception\SaderatException
      * @throws ValidationException
      * @throws RequestException
      *
      */
-    public function verifyPayment()
+    public function verify()
     {
-        $response = new MabnaResponse($this->terminalId);
+        $response = new SaderatResponse($this->terminalId);
 
-        return $response->verifyPayment();
+        return $response->verify();
     }
 
 
@@ -129,7 +129,7 @@ form.setAttribute("target", "_self");';
      *
      * @return bool
      *
-     * @throws Exception\MabnaException
+     * @throws Exception\SaderatException
      * @throws ValidationException
      * @throws RequestException
      *
@@ -139,7 +139,7 @@ form.setAttribute("target", "_self");';
         if ($digitalReceipt == '') {
             $digitalReceipt = $_POST['digitalreceipt'];
         }
-        $response = new MabnaResponse($this->terminalId);
+        $response = new SaderatResponse($this->terminalId);
 
         return $response->rollbackPayment($digitalReceipt);
     }
