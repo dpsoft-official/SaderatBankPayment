@@ -10,7 +10,6 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use Respect\Validation\Exceptions\ValidationException;
 
 class SaderatResponseTest extends TestCase
 {
@@ -20,39 +19,12 @@ class SaderatResponseTest extends TestCase
     private $SaderatResponse;
 
     /**
-     * @var int
-     */
-    private $randStr;
-    private $invoiceid;
-    private $randNumber;
-
-    public function testResponseData_will_return_validation_exeption_of_response_data()
-    {
-        $this->expectException(ValidationException::class);
-        $post = [
-            'respcode' => 0,
-            'amount' => 1000,
-            'invoiceid' => $this->invoiceid,
-            'payload' => 123,
-            'terminalid' => 61000063,
-            'tracenumber' => 123,
-            'rrn' => 0,
-            'datepaid' => '2018-05-22',
-            'digitalreceipt' => $this->randStr,
-            'issuerbank' => 'test bank',
-            'respmsg' => 'test message',
-            'cardnumber' => '6104-33***0244'
-        ];
-        $this->SaderatResponse->getPostVariables($post);
-    }
-
-    /**
      * @test
      *
      * @throws SaderatException
      * @throws RequestException
      */
-    public function testverify_will_return_Saderat_exeption_respcode_not_valid()
+    public function test_verify_will_return_Saderat_exception_recode_not_valid()
     {
         $this->expectException(SaderatException::class);
         $this->SaderatResponse->setRespCode(-1);
@@ -65,7 +37,7 @@ class SaderatResponseTest extends TestCase
      * @throws SaderatException
      * @throws RequestException
      */
-    public function testverify_will_return_Saderat_exeption_respcode_unknow()
+    public function test_verify_will_return_Saderat_exception_respcode_unknown()
     {
         $this->expectException(SaderatException::class);
         $this->SaderatResponse->setRespCode(-9);
@@ -78,7 +50,7 @@ class SaderatResponseTest extends TestCase
      * @throws SaderatException
      * @throws RequestException
      */
-    public function testverify_will_return_Saderat_exeption()
+    public function test_verify_will_return_Saderat_exception()
     {
         $this->expectException(SaderatException::class);
         $this->SaderatResponse->setClient($this->clientMock('NOK', -4));
@@ -91,7 +63,7 @@ class SaderatResponseTest extends TestCase
      * @throws SaderatException
      * @throws RequestException
      */
-    public function testverify_will_return_value_in_class()
+    public function test_verify_will_return_value_in_class()
     {
         $this->SaderatResponse->setClient($this->clientMock('Ok', 1000));
         $response = $this->SaderatResponse->verify();
@@ -106,7 +78,7 @@ class SaderatResponseTest extends TestCase
      * @throws SaderatException
      * @throws RequestException
      */
-    public function testverify_will_return_value_in_array()
+    public function test_verify_will_return_value_in_array()
     {
         $this->SaderatResponse->setClient($this->clientMock('Ok', 1000));
         $response = $this->SaderatResponse->verify();
@@ -121,7 +93,7 @@ class SaderatResponseTest extends TestCase
      * @throws RequestException
      *
      */
-    public function testRollbackPayment_will_return_Saderat_exeption()
+    public function test_RollbackPayment_will_return_Saderat_exeption()
     {
         $this->expectException(SaderatException::class);
         $this->SaderatResponse->setClient($this->clientMock('NOK', -8));
@@ -135,7 +107,7 @@ class SaderatResponseTest extends TestCase
      * @throws SaderatException
      * @throws RequestException
      */
-    public function testRollbackPayment_will_return_true_response()
+    public function test_RollbackPayment_will_return_true_response()
     {
         $this->SaderatResponse->setClient($this->clientMock('Ok', 0));
         $result = $this->SaderatResponse->rollbackPayment('sdf');
@@ -149,7 +121,7 @@ class SaderatResponseTest extends TestCase
      * @throws SaderatException
      * @throws RequestException
      */
-    public function testRollbackPayment_will_return_request_exception()
+    public function test_RollbackPayment_will_return_request_exception()
     {
         $this->expectException(RequestException::class);
         $this->SaderatResponse->setClient($this->clientMockError());

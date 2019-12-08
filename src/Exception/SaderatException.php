@@ -7,16 +7,15 @@ class SaderatException extends \Exception
     /**
      * SaderatException constructor.
      *
-     * @param int $code
+     * @param  int  $code
      */
     public function __construct(int $code)
     {
-        $this->message = $this->codeToMessage((int)$code);
-        $this->code = $code;
+        parent::__construct($this->codeToMessage((int)$code), $code);
     }
 
     /**
-     * @param int $code
+     * @param  int  $code
      *
      * @return string $errors
      */
@@ -30,7 +29,7 @@ class SaderatException extends \Exception
             -5 => 'دسترسی IP مجاز نمی باشد (IP در Access List وجود ندارد)',
             -6 => 'عدم فعال بودن سرویس برگشت تراکنش برای پذیرنده',
             -7 => 'تراکنش توسط خریدار لغو شده است.',
-            -8 => 'خطای تعریف نشده'
+            -8 => 'خطای تعریف نشده',
         ];
 
         return !empty($errors[$code]) ? $errors[$code] : 'خطای تعریف نشده!';

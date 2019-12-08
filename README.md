@@ -2,14 +2,12 @@
 
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
-Mabna Cart Aria is a iranian company work at bank payment and allow you to handle checkout in your website with iranian payment cart(Saderat Bank).
+Mabna Cart Aria is a iranian company work at bank payment and allow you to handle checkout in your website with iranian payment cart(Saderat Bank).If you need integration your website with Saderat Bank or need to now Saderat online payment how to work, you are in the right place.
 
-# Is right for me?
-If you need integration your website with Saderat Bank or need to now Saderat online payment how to work, you are in the right place.
 
 # Steps of payment with Saderat payment v2
 <ol>
-<li> Customer choose sevices or products in website</li>
+<li> Customer choose services or products in website</li>
 <li> Redirect customer to gateway with payment params(with post method)</li>
 <li> Customer enter cart data in Saderat gateway and pay amount</li>
 <li> Saderat gateway redirect customer to callback url with post method and transaction response parameters</li>
@@ -40,10 +38,10 @@ try{
      * @param int $amount The amount that customer must pay
      * @param string $payload Optional addition data
 	 *
-	 * @method payRequest Return invoice id and you can save in your DB
+	 * @return int invoice id and you can save in your DB
 	 *
      */
-    $invoiceId = $request->payRequest($callbackUrl, $amount, $payload);
+    $invoiceId = $request->request($callbackUrl, $amount, $payload);
 	
     echo $request->getRedirectScript();
    

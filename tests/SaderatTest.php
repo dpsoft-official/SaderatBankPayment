@@ -12,21 +12,13 @@ class SaderatTest extends TestCase
      */
     private $Saderat;
 
-
-    public function testPayRequest_it_should_throw_validation_exception()
-    {
-        $this->expectException(
-            \Respect\Validation\Exceptions\ValidationException::class
-        );
-        $this->Saderat->payRequest('http://google.com', 100, 'test');
-    }
-
-
     public function testPayRequest_will_return_invoice_id_and_redirect_to_gateway()
     {
         $callbackUrl = 'http://www.example.com';
-        $invoiceId = $this->Saderat->payRequest(
-            $callbackUrl, 1000, 'test'
+        $invoiceId = $this->Saderat->request(
+            $callbackUrl,
+            1000,
+            'test'
         );
         $redirectScriptString = $this->Saderat->getRedirectScript();
         $this->assertContains((string)$invoiceId, $redirectScriptString);

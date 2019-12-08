@@ -1,9 +1,5 @@
 <?php namespace Dpsoft\Saderat;
 
-
-use Respect\Validation\Exceptions\ValidationException;
-use Respect\Validation\Validator as v;
-
 class ResponseData
 {
     /**
@@ -16,14 +12,10 @@ class ResponseData
     /**
      * validate and set Saderat response code
      *
-     * @param int $respCode
-     *
-     * @throws ValidationException
-     *
+     * @param  int  $respCode
      */
     public function setRespCode($respCode)
     {
-        v::numeric()->assert($respCode);
         $this->respCode = $respCode;
     }
 
@@ -31,163 +23,119 @@ class ResponseData
     /**
      * Validate and set response Amount
      *
-     * @param int $amount
+     * @param  int  $amount
      *
-     * @throws ValidationException
      */
     public function setAmount($amount)
     {
-        v::numeric()->assert($amount);
         $this->amount = $amount;
     }
 
     /**
      * Validate and set invoice id
      *
-     * @param int $invoiceId
+     * @param  int  $invoiceId
      *
-     * @throws ValidationException
      */
     public function setInvoiceId($invoiceId)
     {
-        v::numeric()->assert($invoiceId);
         $this->invoiceId = $invoiceId;
     }
 
     /**
      * Validate and set payload(additional user data)
      *
-     * @param string $payload
+     * @param  string  $payload
      *
-     * @throws ValidationException
      */
     public function setPayload($payload)
     {
-        v::stringType()->assert($payload);
         $this->payload = $payload;
     }
 
     /**
      * Validate and set terminal id
      *
-     * @param int $terminalId
+     * @param  int  $terminalId
      *
-     * @throws ValidationException
      */
     public function setTerminalId($terminalId)
     {
-        v::numeric()->assert($terminalId);
         $this->terminalId = $terminalId;
     }
 
     /**
      * Validate and set trace number(transaction tracking code)
      *
-     * @param int $traceNumber
-     *
-     * @throws ValidationException
+     * @param  int  $traceNumber
      */
     public function setTraceNumber($traceNumber)
     {
-        if (isset($traceNumber)) {
-            v::numeric()->assert($traceNumber);
-            $this->traceNumber = $traceNumber;
-        }
+        $this->traceNumber = $traceNumber;
     }
 
     /**
      * Validation and set RRN(Uniqe Bank report number)
      *
-     * @param int $RRN
-     *
-     * @throws ValidationException
+     * @param  int  $RRN
      *
      */
     public function setRRN($RRN)
     {
-        if (isset($RRN)) {
-            v::numeric()->assert($RRN);
-            $this->RRN = $RRN;
-        }
+        $this->RRN = $RRN;
     }
 
     /**
      * Validate and set DatePaid
      *
-     * @param string $DatePaid
-     *
-     * @throws ValidationException
-     *
+     * @param  string  $DatePaid
      */
     public function setDatePaid($DatePaid)
     {
-        if (isset($DatePaid)) {
-            v::stringType()->assert($DatePaid);
-            $this->DatePaid = $DatePaid;
-        }
+        $this->DatePaid = $DatePaid;
     }
 
     /**
      * Validate and  set Digital Receipt
      *
-     * @param string $digitalReceipt
-     *
-     * @throws ValidationException
-     *
+     * @param  string  $digitalReceipt
      */
     public function setDigitalReceipt($digitalReceipt)
     {
-        if (isset($digitalReceipt)) {
-            v::stringType()->assert($digitalReceipt);
-            $this->digitalReceipt = $digitalReceipt;
-        }
+        $this->digitalReceipt = $digitalReceipt;
     }
 
     /**
      * Validate and set issuer bank
      *
-     * @param string $issuerBank
+     * @param  string  $issuerBank
      *
-     * @throws ValidationException
      */
     public function setIssuerBank($issuerBank)
     {
-        if (isset($issuerBank)) {
-            v::stringType()->assert($issuerBank);
-            $this->issuerBank = $issuerBank;
-        }
+        $this->issuerBank = $issuerBank;
     }
 
 
     /**
      * Validate and set issuer bank
      *
-     * @param string $cardNumber
-     *
-     * @throws ValidationException
+     * @param  string  $cardNumber
      */
     public function setCardNumber($cardNumber)
     {
-        if (isset($cardNumber)) {
-            v::stringType()->assert($cardNumber);
-            $this->cardNumber = $cardNumber;
-        }
+        $this->cardNumber = $cardNumber;
     }
 
 
     /**
      * Validate and set issuer bank
      *
-     * @param string $respMsg
-     *
-     * @throws ValidationException
+     * @param  string  $respMsg
      */
     public function setRespMsg($respMsg)
     {
-        if (isset($respMsg)) {
-            v::stringType()->assert($respMsg);
-            $this->respMsg = $respMsg;
-        }
+        $this->respMsg = $respMsg;
     }
 
 
@@ -208,7 +156,7 @@ class ResponseData
             'digitalreceipt' => $this->getDigitalReceipt(),
             'issuerbank' => $this->getIssuerBank(),
             'cardnumber' => $this->getCardNumber(),
-            'respmsg' => $this->getRespMsg()
+            'respmsg' => $this->getRespMsg(),
         ];
 
         return $result;
