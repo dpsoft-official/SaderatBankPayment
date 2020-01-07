@@ -68,6 +68,7 @@ class Saderat
     public function getRedirectScript()
     {
         $jsCode = <<<'HTML'
+<!DOCTYPE html><html lang="fa"><body>
                 <script>
                 var form = document.createElement("form");
                 form.setAttribute("method", "POST");
@@ -89,7 +90,7 @@ HTML;
             $i++;
         }
 
-        $jsCode .= 'document.body.appendChild(form);form.submit();</script>';
+        $jsCode .= 'document.body.appendChild(form);form.submit();</script></body></html>';
 
         return sprintf($jsCode, self::Saderat_SHAPARAK_URL);
     }
