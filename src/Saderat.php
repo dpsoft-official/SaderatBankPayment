@@ -10,7 +10,7 @@ class Saderat
      *
      * @var string
      */
-    const Saderat_SHAPARAK_URL = "https://Saderat.shaparak.ir:8080/Pay";
+    const Saderat_SHAPARAK_URL = "https://mabna.shaparak.ir:8080/Pay";
 
     /**
      * Payment options
