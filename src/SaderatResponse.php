@@ -12,7 +12,7 @@ class SaderatResponse extends ResponseData
      * @var string
      *
      */
-    const VERIFY_URl = "https://Saderat.shaparak.ir:8081/V1/PeymentApi/Advice";
+    const VERIFY_URl = "‫‪https://mabna.shaparak.ir:8081/V1/PeymentApi/Advice‬‬";
 
     /**
      * Saderat rollback url
@@ -20,7 +20,7 @@ class SaderatResponse extends ResponseData
      * @var string
      *
      */
-    const ROLLBACK_URl = "https://Saderat.shaparak.ir:8081/V1/PeymentApi/Rollback";
+    const ROLLBACK_URl = "‫‪https://mabna.shaparak.ir:8081/V1/PeymentApi/Rollback‬‬";
 
     /**
      * Terminal ID

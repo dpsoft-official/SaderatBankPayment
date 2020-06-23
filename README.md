@@ -1,4 +1,4 @@
-# Mabna Card Aria Payment Package(Saderat Bank) - v2
+# Saderat Bank (Mabna Card Aria) Payment Package Based On Official Document v2.1.1.2
 
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
