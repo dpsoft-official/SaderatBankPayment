@@ -14,7 +14,7 @@ composer require dpsoft/saderat
 
 # Implementation
 Attention: The Saderat Bank webservice just available with IP that allowed with Saderat Bank(by contract with Mabna cart company).
-<br><br>[استفاده از درگاه بانک صادرات - مبنا - در زبان Php](https://dpsoft.ir/%D9%88%D8%A8%D9%84%D8%A7%DA%AF/25/%D8%A7%D8%B3%D8%AA%D9%81%D8%A7%D8%AF%D9%87+%D8%A7%D8%B2+%D8%AF%D8%B1%DA%AF%D8%A7%D9%87+%D8%A8%D8%A7%D9%86%DA%A9+%D8%B5%D8%A7%D8%AF%D8%B1%D8%A7%D8%AA+-+%D9%85%D8%A8%D9%86%D8%A7+-+%D8%AF%D8%B1+%D8%B2%D8%A8%D8%A7%D9%86+Php)
+<br><br>[استفاده از درگاه بانک صادرات - مبنا - در زبان Php](https://dpsoft.ir/news/27/%D8%A7%D8%B3%D8%AA%D9%81%D8%A7%D8%AF%D9%87-%D8%A7%D8%B2-%D8%AF%D8%B1%DA%AF%D8%A7%D9%87-%D8%A8%D8%A7%D9%86%DA%A9-%D8%B5%D8%A7%D8%AF%D8%B1%D8%A7%D8%AA-%D9%85%D8%A8%D9%86%D8%A7-%D8%AF%D8%B1-%D8%B2%D8%A8%D8%A7%D9%86-php)
 #### Redirect customer with parameters to Saderat gateway
 ```php
 <?php use Dpsoft\Saderat\Saderat;
