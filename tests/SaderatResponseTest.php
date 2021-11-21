@@ -176,7 +176,7 @@ class SaderatResponseTest extends TestCase
     }
 
 
-    public function setUp()
+    public function setUp():void
     {
         $this->randStr = uniqid();
         $this->randNumber = rand();

@@ -1,23 +1,15 @@
-# Saderat Bank (Mabna Card Aria) Payment Package Based On Official Document v2.1.1.2
+# Mabna Card Aria Payment Package(Saderat Bank) - v3
 
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
-Mabna Cart Aria is a iranian company work at bank payment and allow you to handle checkout in your website with iranian payment cart(Saderat Bank).If you need integration your website with Saderat Bank or need to now Saderat online payment how to work, you are in the right place.
+Mabna Cart Aria is a iranian company work at bank payment and allow you to handle checkout in your website with iranian payment cart(Saderat Bank).
 
-
-# Steps of payment with Saderat payment v2
-<ol>
-<li> Customer choose services or products in website</li>
-<li> Redirect customer to gateway with payment params(with post method)</li>
-<li> Customer enter cart data in Saderat gateway and pay amount</li>
-<li> Saderat gateway redirect customer to callback url with post method and transaction response parameters</li>
-<li> Post response parameter to Saderat verify url </li>
-<li> Receive response of verify url and handle transaction </li>
-</ol>
+## Why new version every year?!
+بانک صادرات هر ساله ویرایش جدیدی از آستین بیرون میاره. فقط میشه گفت شرم‌آوره. 
 
 # Installation
 ``` bash
-$ composer require dpsoft/saderat
+composer require dpsoft/saderat
 ```
 
 # Implementation
@@ -38,7 +30,7 @@ try{
      * @param int $amount The amount that customer must pay
      * @param string $payload Optional addition data
 	 *
-	 * @return int invoice id and you can save in your DB
+	 * @method payRequest Return invoice id and you can save in your DB
 	 *
      */
     $invoiceId = $request->request($callbackUrl, $amount, $payload);

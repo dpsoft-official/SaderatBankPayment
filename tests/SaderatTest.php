@@ -1,7 +1,12 @@
 <?php
 
-
 use Dpsoft\Saderat\Saderat;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 class SaderatTest extends TestCase
@@ -21,16 +26,56 @@ class SaderatTest extends TestCase
             'test'
         );
         $redirectScriptString = $this->Saderat->getRedirectScript();
-        $this->assertContains((string)$invoiceId, $redirectScriptString);
-        $this->assertContains($callbackUrl, $redirectScriptString);
-        $this->assertContains('1000', $redirectScriptString);
-        $this->assertContains('test', $redirectScriptString);
+        $this->assertStringContainsString(123, $redirectScriptString);
+        $this->assertStringContainsString(456, $redirectScriptString);
     }
 
+    /**
+     * @param string $status
+     * @param int $Accesstoken
+     *
+     * @return Client
+     */
+    public function clientMock($status, $Accesstoken)
+    {
+        $mock = new MockHandler(
+            [
+                new Response(
+                    200,
+                    [],
+                    json_encode(['Status' => $status, 'Accesstoken' => $Accesstoken])
+                ), new RequestException("Error Communicating with Server", new Request('GET', 'test'))
+            ]
+        );
 
-    public function setUp()
+        $handler = HandlerStack::create($mock);
+        return new Client(['handler' => $handler]);
+    }
+
+    /**
+     * @return Client
+     */
+    public function clientMockError()
+    {
+        $mock = new MockHandler(
+            [
+                new RequestException(
+                    "Error Communicating with Server",
+                    new Request('GET', 'test')
+                )
+            ]
+        );
+
+        $handler = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handler]);
+
+        return $client;
+    }
+
+    public function setUp():void
     {
         $this->Saderat = new Saderat(123);
+        $this->Saderat->setClient($this->clientMock(0,456));
     }
 
 }

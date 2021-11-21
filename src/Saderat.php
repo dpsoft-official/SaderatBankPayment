@@ -1,6 +1,8 @@
 <?php namespace Dpsoft\Saderat;
 
 
+use Dpsoft\Saderat\Exception\SaderatException;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
 class Saderat
@@ -10,8 +12,8 @@ class Saderat
      *
      * @var string
      */
-    const Saderat_SHAPARAK_URL = "https://mabna.shaparak.ir:8080/Pay";
-
+    const Saderat_SHAPARAK_URL = "https://sepehr.shaparak.ir:8080/Pay";
+    const REQUEST_TOKEN_URL = "https://sepehr.shaparak.ir:8081/V1/PeymentApi/GetToken";
     /**
      * Payment options
      *
@@ -24,11 +26,19 @@ class Saderat
      *
      * @var int
      */
-    private $terminalId;
+    protected $terminalId;
+    /**
+     * @var mixed
+     */
+    protected $token;
+    /**
+     * @var Client
+     */
+    private $client;
 
 
     /**
-     * @param  int  $terminalId
+     * @param int $terminalId
      */
     public function __construct(int $terminalId)
     {
@@ -41,14 +51,19 @@ class Saderat
     /**
      * Get to gateway with parameters
      *
-     * @param  string  $callbackUrl  Redirect url after payment
-     * @param  int  $amount  in rial
-     * @param  null  $orderId
-     * @param  string  $payload  additional data
+     * @param string $callbackUrl Redirect url after payment
+     * @param int $amount in rial more than 1000 rials
+     * @param null $orderId
+     * @param string|null $payload additional data in json string
      * @return int order id
+     * @throws SaderatException ,\Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException ,\Exception
      */
     public function request(string $callbackUrl, int $amount, $orderId = null, string $payload = null)
     {
+        if ($amount < 1000) {
+            throw new \Exception("Amount is below than 1000 Rials.");
+        }
         $invoiceId = $orderId ? $orderId : $this->uniqueNumber();
 
         $this->payParams['Amount'] = $amount;
@@ -56,6 +71,20 @@ class Saderat
         $this->payParams['InvoiceID'] = $invoiceId;
         $this->payParams['Payload'] = $payload;
 
+        $client = $this->client ?? new Client();
+        $body = $client->post(
+            self::REQUEST_TOKEN_URL,
+            [
+                'form_params' => $this->payParams,
+            ]
+        )->getBody();
+
+        $data = json_decode($body, true);
+
+        if (($data['Status'] ?? -1) !== 0) {
+            throw new SaderatException($data['Status'] ?? -1);
+        }
+        $this->token = $data['Accesstoken'];
         return $invoiceId;
     }
 
@@ -67,6 +96,7 @@ class Saderat
      */
     public function getRedirectScript()
     {
+        $data = ['TerminalID' => $this->terminalId, 'token' => $this->token];
         $jsCode = <<<'HTML'
 <!DOCTYPE html><html lang="fa"><body>
                 <script>
@@ -75,8 +105,7 @@ class Saderat
                 form.setAttribute("action", "%s");
                 form.setAttribute("target", "_self");
 HTML;
-        $i = 0;
-        foreach ($this->payParams as $key => $value) {
+        foreach ($data as $key => $value) {
 
             $jsCode .= sprintf(
                 'var hiddenField = document.createElement("input");
@@ -87,7 +116,6 @@ HTML;
                 $key,
                 $value
             );
-            $i++;
         }
 
         $jsCode .= 'document.body.appendChild(form);form.submit();</script></body></html>';
@@ -114,16 +142,13 @@ HTML;
     /**
      * Rollback payment
      *
-     * @param  string  $digitalReceipt  of transaction need to rollback
+     * @param string $digitalReceipt of transaction need to rollback
      * @return bool
      * @throws Exception\SaderatException
      * @throws RequestException
      */
-    public function rollbackPayment(string $digitalReceipt = null)
+    public function rollbackPayment(string $digitalReceipt)
     {
-        if ($digitalReceipt == '') {
-            $digitalReceipt = $_POST['digitalreceipt'];
-        }
         $response = new SaderatResponse($this->terminalId);
 
         return $response->rollbackPayment($digitalReceipt);
@@ -132,6 +157,14 @@ HTML;
     public function uniqueNumber()
     {
         return hexdec(uniqid());
+    }
+
+    /**
+     * @param Client $client
+     */
+    public function setClient(Client $client)
+    {
+        $this->client = $client;
     }
 
 }

@@ -12,7 +12,7 @@ class SaderatResponse extends ResponseData
      * @var string
      *
      */
-    const VERIFY_URl = "https://mabna.shaparak.ir:8081/V1/PeymentApi/Advice";
+    const VERIFY_URl = "https://sepehr.shaparak.ir:8081/V1/PeymentApi/Advice";
 
     /**
      * Saderat rollback url
@@ -20,7 +20,7 @@ class SaderatResponse extends ResponseData
      * @var string
      *
      */
-    const ROLLBACK_URl = "https://mabna.shaparak.ir:8081/V1/PeymentApi/Rollback";
+    const ROLLBACK_URl = "https://sepehr.shaparak.ir:8081/V1/PeymentApi/Rollback";
 
     /**
      * Terminal ID
@@ -63,8 +63,8 @@ class SaderatResponse extends ResponseData
     public function verify()
     {
         if ($this->getRespCode() == 0) {
-            $this->client = $this->client ?? new Client();
 
+            $this->client = $this->client ?? new Client();
             $body = $this->client->post(
                 self::VERIFY_URl,
                 [
@@ -74,19 +74,23 @@ class SaderatResponse extends ResponseData
                     ],
                 ]
             )->getBody();
-
             $verifyResponse = json_decode($body, true);
 
-            if (!empty($verifyResponse['Status']) and $verifyResponse['Status'] == 'Ok' and $verifyResponse['ReturnId'] == $this->getAmount(
-                )) {
+            if (
+                !empty($verifyResponse['Status'])
+                and
+                ($verifyResponse['Status'] === 'Ok' or $verifyResponse['Status'] === 'Duplicate' )
+                and
+                $verifyResponse['ReturnId'] == $this->getAmount()
+            ) {
                 return $this;
-            } else {
-                throw new SaderatException($verifyResponse['ReturnId'] ?? -8);
             }
+
+            throw new SaderatException($verifyResponse['ReturnId'] ?? -8);
         } elseif ($this->getRespCode() == -1) {
             throw new SaderatException(-7);
         } else {
-            throw new SaderatException(-8);
+            throw new SaderatException($this->getRespCode());
         }
     }
 
@@ -113,11 +117,11 @@ class SaderatResponse extends ResponseData
 
         $rollbackResponse = json_decode($body, true);
 
-        if (!empty($rollbackResponse['Status']) and $rollbackResponse['Status'] == 'Ok') {
+        if (!empty($rollbackResponse['Status']) and $rollbackResponse['Status'] === 'Ok') {
             return true;
-        } else {
-            throw new SaderatException($rollbackResponse['ReturnId'] ?? -8);
         }
+
+        throw new SaderatException($rollbackResponse['ReturnId'] ?? -8);
     }
 
 
